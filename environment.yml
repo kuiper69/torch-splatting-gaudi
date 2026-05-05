@@ -1,4 +1,4 @@
-name: torch-splatting
+name: torch-splatting-cuda
 channels:
   - pytorch
   - nvidia

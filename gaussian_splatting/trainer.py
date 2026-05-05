@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 from accelerate import Accelerator
-from torch.optim import Adam
+from habana_frameworks.torch.hpex.optimizers import FusedAdamW
 from pathlib import Path
 import os
 from tqdm import tqdm
@@ -74,7 +74,7 @@ class Trainer(object):
         self.with_tracking = with_tracking
         self.step = 0
 
-        self.opt = Adam(self.model.parameters(), lr=train_lr, betas=adam_betas)
+        self.opt = FusedAdamW(self.model.parameters(), lr=train_lr, betas=adam_betas)
         
         if self.accelerator.is_main_process:
             self.results_folder = Path(results_folder)

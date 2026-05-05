@@ -91,8 +91,8 @@ def get_camera_params():
 
 
 if __name__ == '__main__':
-    ply_path = 'result/test/splats-200.ply'
-    output_path = 'result/test/image2-200.png'
+    ply_path = 'result/test/splats-18900.ply'
+    output_path = 'result/test/image2-18900.png'
 
     # Load the model
     print(f"Loading PLY file from {ply_path}")
