@@ -182,7 +182,17 @@ class GSSTrainer(Trainer):
 
                 # Cadenced logging — host sync every i_print steps only
                 if self.step % self.i_print == 0:
-                    pbar.set_description(f'loss: {static_loss.item():.3f}')
+                    loss_val = static_loss.item()
+                    l1_val   = static_l1.item()
+                    ssim_val = static_ssim.item()
+                    mse      = ((static_out['render'].detach() - static_rgb.detach()) ** 2).mean()
+                    psnr_val = (-10.0 * torch.log10(mse)).item()
+                    pbar.set_description(
+                        f'loss: {loss_val:.3f} '
+                        f'l1: {l1_val:.3f} '
+                        f'ssim: {ssim_val:.3f} '
+                        f'psnr: {psnr_val:.3f}'
+                    )
 
                 if self.step % self.i_image == 0:
                     self.on_evaluate_step()
@@ -219,6 +229,7 @@ if __name__ == "__main__":
         train_batch_size=1,
         train_num_steps=25000,
         i_image=100,
+        i_print=500,
         train_lr=1e-3,
         amp=False,
         fp16=False,

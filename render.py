@@ -92,7 +92,7 @@ def get_camera_params():
 
 if __name__ == '__main__':
     ply_path = 'result/test/splats-18900.ply'
-    output_path = 'result/test/image2-18900.png'
+    output_path = 'result/test/image2-18900-gaudi.png'
 
     # Load the model
     print(f"Loading PLY file from {ply_path}")
@@ -104,7 +104,9 @@ if __name__ == '__main__':
 
     renderer = GaussRenderer(
         active_sh_degree=model.max_sh_degree,
-        white_bkgd=True
+        white_bkgd=True,
+        image_height=int(H),
+        image_width=int(W)
     )
 
     # Render
